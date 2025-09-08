@@ -8,6 +8,15 @@
      <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <!-- tailwind link -->
      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- font Awesome link -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+     <style>
+      .active{
+        background-color: #15803D;
+        color: white;
+      }
+     </style>
 
 </head>
 <body class="bg-[#F0FDF4]">
@@ -59,18 +68,26 @@
     </section>
 
     <!-- cetegory section -->
-     <main class="w-11/12 mx-auto p-15 ">
-      <h2 class="text-center text-3xl font-semibold">Choose Your Trees</h2>
-      <div class="grid grid-cols-3">
-        <div>
-          <h3 class="font-semibold mb-4">Categories</h3>
+     <main class="w-11/12 mx-auto mt-10">
       
-          <div id="category-container" class="space-y-2"></div>
-        </div>
-        <div class="">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 min-h-screen">
+          <div class="md:col-span-2 p-2 md:mt-20 order-1">
+            <h3 class="font-semibold text-lg mb-4">Categories</h3>
+      
+            <div id="category-container" class="space-y-2"></div>
+          </div>
 
+          <div class="md:col-span-8 p-2 order-2">
+            <h2 class="text-center text-3xl font-semibold">Choose Your Trees</h2>
+            <div id="plant-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-10">
+                
+            </div>
+          </div>
+
+        <div class="md:col-span-2 bg-white p-2 shadow-md rounded-lg md:mt-20 order-3">
+          <h2 class="font-semibold text-lg mb-4"><i class="fa-solid fa-cart-shopping"></i>Your Cart</h2>
+          <ul id="cart-items" class="space-y-2"></ul>
         </div>
-        <div></div>
       </div>
       
       
