@@ -30,6 +30,7 @@ const loadCategoryId=(id)=>{
 
         manageSpinner(false);
     });
+
     
 }
 
@@ -39,6 +40,8 @@ const loadAllPlants=()=>{
     fetch(url)
     .then((res)=> res.json())
     .then((data)=>{
+        removeActive();
+        document.getElementById("category-btn-all").classList.add("active");
         displayCategoryPlant(data.plants)
         manageSpinner(false);
     })
@@ -60,9 +63,9 @@ const displayCategoryPlant=(plants)=>{
 
                 <h3 class="font-medium">${plant.name}</h3>
                 <p class="text-xs text-gray-600 mb-2">${plant.description.slice(0, 100)}</p>
-                <div>
+                <div class="flex justify-between items-center">
                   <span class="inline-block bg-[#F0FDF4] text-[#15803D] px-2 py-1 rounded-3xl text-xs ">${plant.category}</span>
-                  <span class="font-bold ml-35"><i class="fa-solid fa-bangladeshi-taka-sign"></i>${plant.price}</span>
+                  <span class="font-bold "><i class="fa-solid fa-bangladeshi-taka-sign"></i>${plant.price}</span>
                 </div>
                 <button  onclick="addToCart('${plant.name}', ${plant.price})" class="bg-[#15803D] text-white px-3 py-1 rounded-3xl hover:bg-slate-500 mt-3">
                 Add to Cart</button>      
@@ -79,7 +82,7 @@ const displayCategory= (category) =>{
     categoryContainer.innerHTML='';
 
     categoryContainer.innerHTML= `
-    <button onclick="loadAllPlants()" class="category-btn w-full text-left hover:bg-[#15803D] hover:text-white">All Plants</button>
+    <button id="category-btn-all" onclick="loadAllPlants()" class="category-btn w-full text-center md:text-left hover:bg-[#15803D] hover:text-white">All Plants</button>
     `
 
     category.forEach((list) => {
@@ -93,7 +96,7 @@ const displayCategory= (category) =>{
     categoryContainer.append(btnList);
 
   });
-  
+  document.getElementById("category-btn-all").classList.add("active");
   
 }
 
