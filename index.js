@@ -7,6 +7,8 @@ const loadCategory=()=> {
     .then((json)=> displayCategory (json.categories))
 }
 
+// active category
+
 const removeActive=()=>{
     const categoryButtons=document.querySelectorAll('.category-btn')
     // console.log(categoryButtons);
@@ -39,6 +41,7 @@ const loadAllPlants=()=>{
     manageSpinner(false);
 }
 
+// display cards
 const displayCategoryPlant=(plants)=>{
     const plantContainer=document.getElementById('plant-container')
     plantContainer.innerHTML='';
@@ -65,6 +68,7 @@ const displayCategoryPlant=(plants)=>{
     
 }
 
+// display category
 const displayCategory= (category) =>{
     const categoryContainer=document.getElementById('category-container')
     categoryContainer.innerHTML='';
@@ -88,6 +92,8 @@ const displayCategory= (category) =>{
   
 }
 
+// cart feature
+
 const addToCart=(name,price)=>{
     const itemQuantity = cart.find(item => item.name === name);
     if (itemQuantity) {
@@ -109,6 +115,8 @@ const removeCart = (index) => {
   displayCart();
 };
 
+// display cart 
+
 const displayCart=()=>{
     const cartContainer=document.getElementById('cart-container')
     const cartTotal=document.getElementById('cart-total')
@@ -119,7 +127,7 @@ const displayCart=()=>{
         total += item.price * item.qty;
 
         const li = document.createElement("li");
-        li.className = "flex justify-between items-center bg-gray-100 px-3 py-2 rounded";
+        li.className = "flex justify-between items-center bg-[#F0FDF4] px-3 py-2 rounded";
         li.innerHTML = `
           
             <div class="flex flex-col">
@@ -133,6 +141,8 @@ const displayCart=()=>{
     })
     cartTotal.innerText='৳' + total;
 }
+
+// spinner feature
 
 const manageSpinner=(status)=>{
     if(status == true){
