@@ -1,4 +1,5 @@
 // console.log('js file connected')
+const cart=[];
 
 const loadCategory=()=> {
     fetch('https://openapi.programming-hero.com/api/categories')
@@ -58,7 +59,7 @@ const displayCategoryPlant=(plants)=>{
                   <span class="inline-block bg-[#F0FDF4] text-[#15803D] px-2 py-1 rounded-3xl text-xs ">${plant.category}</span>
                   <span class="font-bold ml-35"><i class="fa-solid fa-bangladeshi-taka-sign"></i>${plant.price}</span>
                 </div>
-                <button class="bg-[#15803D] text-white px-3 py-1 rounded-3xl hover:bg-slate-500 mt-3">
+                <button  onclick="addToCart('${plant.name}', ${plant.price})" class="bg-[#15803D] text-white px-3 py-1 rounded-3xl hover:bg-slate-500 mt-3">
                 Add to Cart</button>      
        
        `;
@@ -87,6 +88,52 @@ const displayCategory= (category) =>{
   });
   
   
+}
+
+const addToCart=(name,price)=>{
+    const itemQuantity = cart.find(item => item.name === name);
+    if (itemQuantity) {
+      itemQuantity.qty += 1; 
+    } else {
+      cart.push({ name, price, qty: 1 });
+    }
+    // console.log(cart);
+    displayCart();
+}
+
+const removeCart = (index) => {
+    
+  if (cart[index].qty > 1) {
+    cart[index].qty -= 1; 
+  } else {
+    cart.splice(index, 1); 
+  }
+  displayCart();
+};
+
+const displayCart=()=>{
+    const cartContainer=document.getElementById('cart-container')
+    const cartTotal=document.getElementById('cart-total')
+    cartContainer.innerHTML='';
+    let total = 0;
+
+    cart.forEach((item,index)=>{
+        total += item.price * item.qty;
+
+        const li = document.createElement("li");
+        li.className = "flex justify-between items-center bg-gray-100 px-3 py-2 rounded";
+        li.innerHTML = `
+          
+            <div class="flex flex-col">
+               <span>${item.name}</span>
+               <span class="text-xs text-gray-600"><i class="fa-solid fa-bangladeshi-taka-sign"></i>${item.price} x ${item.qty}</span>
+            </div>
+            <button onclick="removeCart(${index})" class="hover:bg-slate-200">x</button>
+        `;
+        cartContainer.append(li);
+        
+    })
+    cartTotal.innerText='৳' + total;
 }
 
 loadCategory();
