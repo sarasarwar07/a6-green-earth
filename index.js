@@ -14,6 +14,7 @@ const removeActive=()=>{
 }
 
 const loadCategoryId=(id)=>{
+    manageSpinner(true);
     const url=`https://openapi.programming-hero.com/api/category/${id}`
     // console.log(url);
     fetch(url)
@@ -25,22 +26,18 @@ const loadCategoryId=(id)=>{
         clikBtn.classList.add('active');
         displayCategoryPlant(data.plants)
     });
-
+    manageSpinner(false);
 }
 
 const loadAllPlants=()=>{
+    manageSpinner(true);
     const url=`https://openapi.programming-hero.com/api/plants`
     fetch(url)
     .then((res)=> res.json())
     .then((data)=>displayCategoryPlant(data.plants))
-}
 
-// "id": 1,
-// "image": "https://i.ibb.co.com/cSQdg7tf/mango-min.jpg",
-// "name": "Mango Tree",
-// "description": "A fast-growing tropical tree that produces delicious, juicy mangoes during summer. Its dense green canopy offers shade, while its sweet fruits are rich in vitamins and minerals.",
-// "category": "Fruit Tree",
-// "price": 500
+    manageSpinner(false);
+}
 
 const displayCategoryPlant=(plants)=>{
     const plantContainer=document.getElementById('plant-container')
@@ -65,6 +62,7 @@ const displayCategoryPlant=(plants)=>{
        `;
        plantContainer.append(card);
     })
+    
 }
 
 const displayCategory= (category) =>{
@@ -79,7 +77,7 @@ const displayCategory= (category) =>{
         
     const btnList = document.createElement('ul');
     btnList.innerHTML = `
-        <li id="category-btn-${list.id}" onclick="loadCategoryId(${list.id})" class="category-btn">${list.category_name}</li>
+        <li id="category-btn-${list.id}" onclick="loadCategoryId(${list.id})" class="category-btn hover:bg-[#15803D] hover:text-white">${list.category_name}</li>
     `;
 
     
@@ -102,7 +100,7 @@ const addToCart=(name,price)=>{
 }
 
 const removeCart = (index) => {
-    
+
   if (cart[index].qty > 1) {
     cart[index].qty -= 1; 
   } else {
@@ -136,4 +134,17 @@ const displayCart=()=>{
     cartTotal.innerText='৳' + total;
 }
 
+const manageSpinner=(status)=>{
+    if(status == true){
+        document.getElementById('spinner').classList.remove('hidden')
+        document.getElementById('plant-container').classList.add('hidden')
+    }
+    else{
+        document.getElementById('spinner').classList.add('hidden')
+        document.getElementById('plant-container').classList.remove('hidden')
+    }
+
+}
+
 loadCategory();
+loadAllPlants();
