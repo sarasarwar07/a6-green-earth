@@ -27,8 +27,10 @@ const loadCategoryId=(id)=>{
         // console.log(clikBtn);
         clikBtn.classList.add('active');
         displayCategoryPlant(data.plants)
+
+        manageSpinner(false);
     });
-    manageSpinner(false);
+    
 }
 
 const loadAllPlants=()=>{
@@ -36,9 +38,12 @@ const loadAllPlants=()=>{
     const url=`https://openapi.programming-hero.com/api/plants`
     fetch(url)
     .then((res)=> res.json())
-    .then((data)=>displayCategoryPlant(data.plants))
+    .then((data)=>{
+        displayCategoryPlant(data.plants)
+        manageSpinner(false);
+    })
 
-    manageSpinner(false);
+    
 }
 
 // display cards
