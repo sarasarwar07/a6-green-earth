@@ -49,6 +49,31 @@ const loadAllPlants=()=>{
     
 }
 
+const loadTreeDetails= async(id)=>{
+    const url=`https://openapi.programming-hero.com/api/plant/${id}`
+    
+    const res= await fetch(url);
+    const details= await res.json();
+    displayPlanyDetails(details.plants);
+}
+
+const displayPlanyDetails=(pdetail)=>{
+    console.log(pdetail);
+          
+    const detailsBox=document.getElementById('details-container')
+    detailsBox.innerHTML=`
+        <div class="space-y-5">
+            <h3 class="font-medium">${pdetail.name}</h3>
+            <img class="h-70 w-full object-cover rounded mb-2" src="${pdetail.image}" alt="">
+            
+            <p><span class="font-semibold">Category: </span>${pdetail.category}</p>
+            <p><span class="font-semibold">Price: </span><i class="fa-solid fa-bangladeshi-taka-sign"></i>${pdetail.price}</p>
+            <p><span class="font-semibold">Description:  </span>${pdetail.description}</p>
+        </div>
+    `;
+    document.getElementById('plant_modal').showModal();
+}
+
 // display cards
 const displayCategoryPlant=(plants)=>{
     const plantContainer=document.getElementById('plant-container')
@@ -61,7 +86,7 @@ const displayCategoryPlant=(plants)=>{
        card.innerHTML=`
             <img class="h-40 w-full object-cover rounded mb-2" src="${plant.image}" alt="">
 
-                <h3 class="font-medium">${plant.name}</h3>
+                <h3 onclick="loadTreeDetails(${plant.id})" class="font-medium">${plant.name}</h3>
                 <p class="text-xs text-gray-600 mb-2">${plant.description.slice(0, 100)}</p>
                 <div class="flex justify-between items-center">
                   <span class="inline-block bg-[#F0FDF4] text-[#15803D] px-2 py-1 rounded-3xl text-xs ">${plant.category}</span>
